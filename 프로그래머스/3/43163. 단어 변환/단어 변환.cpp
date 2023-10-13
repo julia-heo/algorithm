@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 int dis(vector<string> words,vector<int> visited,string target,string now){
     if(target==now)return 0;
     
