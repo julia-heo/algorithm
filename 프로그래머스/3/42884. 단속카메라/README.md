@@ -54,3 +54,10 @@
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+
+---
+
+이 경우 고려 못하고 있었다 - 다른 풀이 참고해서 알게됨
+
+<img width="500" alt="스크린샷 2023-11-03 오전 6 37 03" src="https://github.com/julia-heo/algorithm/assets/100216331/99d68986-e3ef-447d-93a7-9cd7c8f7ecf6">
