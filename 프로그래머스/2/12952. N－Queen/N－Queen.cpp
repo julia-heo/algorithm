@@ -3,32 +3,36 @@
 #include <cmath>
 
 using namespace std;
-int col[15] = {0,};
-int N;
-int answer=0;
+int col[15]={0,};
+int answer = 0;
+int nsize=0;
 
-int check(int n){
-    for(int i=0;i<n;i++){
-        if(col[i]==col[n]) return 0;
-        if(n-i==abs(col[i]-col[n]))return 0;
+int check(int now){
+    for(int i=0;i<now;i++){
+        if(col[i]==col[now]||now-i==abs(col[now]-col[i])){
+            return 0;
+        }
     }
     return 1;
 }
 
-void queen(int n){ 
-    if(n==N){
+void queen(int now){
+    if(nsize==now){
         answer++;
+        return;
     } else {
-        for(int i=0;i<N;i++){
-            col[n]=i;
-            if(check(n)) queen(n+1);
+        for(int i=0;i<nsize;i++){
+            col[now]=i;
+            if(check(now)){
+                queen(now+1);
+            }
         }
     }
 }
 
 int solution(int n) {
-    N=n;
-    
+    nsize=n;
     queen(0);
+    
     return answer;
 }
