@@ -1,59 +1,72 @@
-
 #include <iostream>
 #include <algorithm>
-
+#include <vector>
 using namespace std;
-struct Medal{
-    int country;
+
+
+struct country {
+    int name;
     int gold;
-    int silv;
-    int bron;
-    int R;
+    int silver;
+    int dong;
+    int grade;
 };
+vector <country> C;
 
-bool comp(const Medal &m1, const Medal &m2){
-    if(m1.gold == m2.gold){
-        if(m1.silv == m2.silv){
-            return m1.bron>=m2.bron;
+bool cmp(country a, country b){
+    if(a.gold==b.gold) {
+        if(a.silver==b.silver) {
+            return a.dong>b.dong;
         }
-        else{
-            return m1.silv>m2.silv;
-        }
+        return a.silver>b.silver;
     }
-    else{
-        return m1.gold > m2.gold;
-    }
+    return a.gold>b.gold;
 }
-
-
-
+bool same(country a, country b){
+    if(a.gold==b.gold&&a.silver==b.silver&&a.dong==b.dong) {
+        return true;
+    }
+    return false;
+}
 
 int main()
 {
     int N,K;
     cin>>N>>K;
-    Medal med[1000];
+    C.resize(N);
     
+    int a,b,c,d;
     for(int i=0;i<N;i++){
-        cin>>med[i].country>>med[i].gold>>med[i].silv>>med[i].bron;
+        cin>>C[i].name>>C[i].gold>>C[i].silver>>C[i].dong;
+        C[i].grade=0;
     }
-    sort(med,med+N,comp);
+    sort(C.begin(),C.end(), cmp);
     
-    for(int i=0;i<N;i++){
-        med[i].R=i+1;
-    }
-    
-    for(int i=1;i<N;i++){
-       if(med[i].gold==med[i-1].gold&&med[i].silv==med[i-1].silv&&med[i].bron==med[i-1].bron){
-           med[i].R=med[i].R-1;
-       }
-    }
-    
-    
-    for(int i=0;i<N;i++){
-        if(med[i].country==K){
-            cout<<med[i].R;
+    int g=1, cnt=1;
+    C[0].grade=1;
+    struct country tmp = C[0];
+    if(C[0].name==K) {
+        cout<<1;
+    } else {
+        int now=1;
+        for(;now<N;now++){
+            if(same(tmp,C[now])) {
+                C[now].grade=g;
+                cnt++;
+            }
+            else{
+                g+=cnt;
+                C[now].grade=g;
+                cnt=1;
+            }
+            if(C[now].name==K) break;
+            tmp=C[now];
         }
+        cout<<C[now].grade;
     }
+    
+    
+    
+
     return 0;
 }
